@@ -46,7 +46,7 @@ Criar uma plataforma digital escalável, com foco em performance, conversão e e
 ## 🌍 Acesso ao projeto
 
 🔗 Site publicado:  
-https://lyvon-dev.github.io/
+https://lyvon-dev.github.io/lyvon.github.io/
 
 ---
 
