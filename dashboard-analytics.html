@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard Analytics — LYVON Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080d;--bg2:#090c13;--bg3:#0d1020;
+  --violet:#6366f1;--violet-dim:#4f51c7;--violet-glow:rgba(99,102,241,0.1);
+  --emerald:#10b981;--emerald-glow:rgba(16,185,129,0.1);
+  --rose:#f43f5e;
+  --amber:#f59e0b;
+  --text:#e2e8f0;--muted:#4a5568;--border:rgba(255,255,255,0.06);--r:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* BACK */
+.back-badge {
+  background: transparent;
+  border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.4rem 0.9rem; font-size: 0.75rem; font-weight: 600;
+  color: var(--slate, #888); text-decoration: none;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.back-badge:hover{color:var(--text)}
+.syntech-badge {
+  background: var(--accent, var(--violet, var(--cyan, var(--orange, var(--gold, #00ff88)))));
+  color: #000; border-radius: 50px;
+  padding: 0.35rem 0.9rem; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+}
+
+/* MAIN LAYOUT */
+.app-layout{display:flex;min-height:100vh;padding-top:0}
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;background:var(--bg2);border-right:1px solid var(--border);
+  position:fixed;top:0;left:0;height:100vh;display:flex;flex-direction:column;
+  z-index:50;padding:1.5rem 0;
+}
+.sidebar-logo{
+  padding:0 1.5rem 1.5rem;border-bottom:1px solid var(--border);
+  font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:800;
+  letter-spacing:-0.02em;margin-bottom:1.5rem;
+}
+.sidebar-logo span{color:var(--violet)}
+.sb-section{padding:0 1rem;margin-bottom:1.5rem}
+.sb-section-label{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding:0 0.5rem;margin-bottom:0.6rem;
+}
+.sb-link{
+  display:flex;align-items:center;gap:0.7rem;padding:0.65rem 0.8rem;
+  border-radius:8px;color:var(--muted);font-size:0.84rem;font-weight:500;
+  text-decoration:none;transition:all 0.2s;cursor:pointer;margin-bottom:2px;
+}
+.sb-link:hover{background:rgba(255,255,255,0.03);color:var(--text)}
+.sb-link.active{background:var(--violet-glow);color:var(--violet);border:1px solid rgba(99,102,241,0.15)}
+.sb-link .sb-icon{width:16px;text-align:center;font-size:0.9rem}
+.sb-badge{
+  margin-left:auto;background:var(--rose);color:#fff;
+  font-size:0.65rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:50px;
+}
+
+/* MAIN AREA */
+.main{margin-left:220px;flex:1;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{
+  background:rgba(6,8,13,0.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:0.9rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:40;
+}
+.topbar-left h1{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:800;color:var(--text)}
+.topbar-left p{font-size:0.75rem;color:var(--muted);margin-top:0.1rem}
+.topbar-right{display:flex;align-items:center;gap:1rem}
+.topbar-btn{
+  background:var(--violet);color:#fff;border:none;border-radius:8px;
+  padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:all 0.2s;text-decoration:none;
+}
+.topbar-btn:hover{background:var(--violet-dim);transform:translateY(-1px)}
+.avatar{width:34px;height:34px;background:var(--violet-glow);border:1px solid rgba(99,102,241,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem}
+
+/* CONTENT */
+.content{padding:2rem;flex:1}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:1.8rem}
+.kpi-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);
+  padding:1.4rem;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.kpi-card:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,0,0,0.4)}
+.kpi-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;
+}
+.kpi-violet::before{background:var(--violet)}
+.kpi-emerald::before{background:var(--emerald)}
+.kpi-rose::before{background:var(--rose)}
+.kpi-amber::before{background:var(--amber)}
+.kpi-label{font-size:0.72rem;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.7rem}
+.kpi-value{font-family:'Lexend',sans-serif;font-size:1.8rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.4rem}
+.kpi-violet .kpi-value{color:var(--violet)}
+.kpi-emerald .kpi-value{color:var(--emerald)}
+.kpi-rose .kpi-value{color:var(--rose)}
+.kpi-amber .kpi-value{color:var(--amber)}
+.kpi-change{font-size:0.78rem;display:flex;align-items:center;gap:0.3rem}
+.up{color:var(--emerald)}
+.down{color:var(--rose)}
+.kpi-sub{font-size:0.7rem;color:var(--muted)}
+
+/* CHARTS ROW */
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-bottom:1.8rem}
+.chart-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;
+}
+.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.chart-title{font-weight:700;font-size:0.9rem}
+.chart-sub{font-size:0.75rem;color:var(--muted);margin-top:0.2rem}
+.period-tabs{display:flex;gap:0.3rem}
+.period-tab{
+  padding:0.3rem 0.7rem;border-radius:6px;font-size:0.72rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;border:1px solid transparent;color:var(--muted);
+}
+.period-tab.active{background:var(--violet-glow);color:var(--violet);border-color:rgba(99,102,241,0.2)}
+
+/* SVG Chart */
+.line-chart-wrap{position:relative;height:150px}
+.line-chart-wrap svg{width:100%;height:100%}
+
+/* Donut */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+.donut-svg{position:relative}
+.donut-label{text-align:center}
+.donut-legend{width:100%}
+.donut-item{display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid var(--border);font-size:0.78rem}
+.donut-item:last-child{border-bottom:none}
+.donut-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:0.5rem}
+
+/* TABLE */
+.table-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.table-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.table-header h3{font-weight:700;font-size:0.9rem}
+.table-search{
+  background:var(--bg3);border:1px solid var(--border);border-radius:7px;
+  padding:0.4rem 0.8rem;font-size:0.78rem;color:var(--text);outline:none;font-family:'Inter',sans-serif;width:180px;
+}
+table{width:100%;border-collapse:collapse}
+th{
+  padding:0.8rem 1.5rem;font-size:0.72rem;font-weight:700;letter-spacing:0.07em;
+  text-transform:uppercase;color:var(--muted);text-align:left;background:var(--bg3);
+}
+td{
+  padding:0.9rem 1.5rem;font-size:0.83rem;border-bottom:1px solid rgba(255,255,255,0.03);
+  transition:background 0.15s;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.01)}
+.status{display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.7rem;border-radius:50px;font-size:0.72rem;font-weight:600}
+.status-active{background:rgba(16,185,129,0.1);color:var(--emerald)}
+.status-pending{background:rgba(245,158,11,0.1);color:var(--amber)}
+.status-inactive{background:rgba(255,255,255,0.05);color:var(--muted)}
+.status::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.user-cell{display:flex;align-items:center;gap:0.7rem}
+.user-av{width:30px;height:30px;border-radius:50%;background:var(--violet-glow);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0}
+.user-name{font-weight:600;font-size:0.84rem}
+.user-email{font-size:0.72rem;color:var(--muted)}
+
+/* HERO DESCRIPTION (above the app) */
+.hero-dash{
+  background:var(--bg);border-bottom:1px solid var(--border);
+  padding:5rem 5% 4rem;text-align:center;position:relative;overflow:hidden;
+}
+.hero-dash::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(99,102,241,0.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-dash h1{
+  font-family:'Lexend',sans-serif;font-size:clamp(2.2rem,4vw,3.4rem);
+  font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem;
+}
+.hero-dash h1 span{color:var(--violet)}
+.hero-dash p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto 2rem;line-height:1.75}
+.hero-dash-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-violet{
+  background:var(--violet);color:#fff;padding:0.85rem 2rem;border-radius:9px;
+  font-weight:700;font-size:0.9rem;text-decoration:none;transition:all 0.25s;
+}
+.btn-violet:hover{background:var(--violet-dim);transform:translateY(-2px);box-shadow:0 12px 30px rgba(99,102,241,0.35)}
+.btn-ghost-dash{
+  border:1px solid rgba(99,102,241,0.3);color:var(--text);
+  padding:0.85rem 2rem;border-radius:9px;font-weight:600;font-size:0.9rem;
+  text-decoration:none;transition:all 0.25s;
+}
+.btn-ghost-dash:hover{border-color:var(--violet);color:var(--violet)}
+.demo-label{
+  display:inline-block;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);
+  color:var(--violet);font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.35rem 0.9rem;border-radius:50px;margin-bottom:1.5rem;
+}
+
+/* CTA bottom */
+.cta-dash{
+  padding:5rem 5%;text-align:center;background:var(--bg2);border-top:1px solid var(--border);
+}
+.cta-dash h2{font-family:'Lexend',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem}
+.cta-dash h2 span{color:var(--violet)}
+.cta-dash p{color:var(--muted);font-size:0.95rem;max-width:440px;margin:0 auto 2rem;line-height:1.7}
+
+footer.dash-footer{
+  padding:1.5rem 5%;border-top:1px solid var(--border);background:var(--bg);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-note{font-size:0.77rem;color:var(--muted)}
+.footer-note a{color:var(--violet);text-decoration:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp 0.6s ease both}
+.fu2{animation:fadeUp 0.6s 0.1s ease both}
+
+@media(max-width:900px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .charts-row{grid-template-columns:1fr}
+  .nav-auth-links{display:none}
+}
+
+/* ========== MOBILE RESPONSIVO ========== */
+@media(max-width:768px){
+  nav{padding:0.7rem 3%;gap:0.4rem;flex-wrap:nowrap}
+  .nav-lp-links,.nav-auth-links,.nav-links-corp{display:none!important}
+  .nav-lp-btn,.nav-auth-btn,.nav-btn-corp{display:none!important}
+  .back-badge{font-size:0.68rem;padding:0.35rem 0.7rem}
+  .syntech-badge{font-size:0.62rem;padding:0.3rem 0.7rem}
+  .logo,.logo-lp,.logo-auth,.logo-corp,.logo-auth,.sidebar-logo{font-size:0.95rem!important}
+
+  .hero-lp,.hero-auth{grid-template-columns:1fr!important;gap:1.5rem!important;padding:4rem 4% 2.5rem!important;min-height:auto!important}
+  .hero-lp-right,.auth-mockup-wrap{display:none!important}
+  .hero-corp{padding:4rem 4% 2.5rem!important;min-height:auto!important}
+  .hero-corp h1,.hero-lp h1,.hero-auth h1{font-size:1.9rem!important}
+  .stats-row{gap:1rem;flex-wrap:wrap}
+  .stat-corp h3{font-size:1.5rem!important}
+
+  .sidebar{display:none!important}
+  .main{margin-left:0!important;width:100%!important}
+  .app-layout{overflow-x:hidden}
+  .topbar{padding:0.6rem 0.8rem!important}
+  .topbar-left h1{font-size:0.82rem}
+  .topbar-right .avatar{display:none}
+  .topbar-btn{padding:0.35rem 0.6rem;font-size:0.68rem}
+  .content{padding:0.8rem!important;overflow-x:hidden}
+
+  .kpi-grid{grid-template-columns:repeat(2,1fr)!important;gap:0.6rem!important}
+  .kpi-value{font-size:1.3rem!important}
+  .kpi-card{padding:0.9rem!important}
+  .charts-row{grid-template-columns:1fr!important;gap:0.8rem!important}
+
+  .table-card{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:500px}
+  th{padding:0.55rem 0.7rem!important;font-size:0.66rem!important}
+  td{padding:0.65rem 0.7rem!important;font-size:0.76rem!important}
+  .table-search{width:110px!important;font-size:0.68rem}
+  .table-header{flex-wrap:wrap;gap:0.4rem;padding:0.7rem 0.8rem!important}
+
+  .feat-auth-grid{grid-template-columns:1fr!important}
+  .perms-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .perms-table{min-width:460px}
+  .perms-table th,.perms-table td{padding:0.55rem 0.6rem!important;font-size:0.73rem!important}
+
+  .admin-inner{grid-template-columns:1fr!important;gap:1.5rem!important}
+  .admin-mockup{display:none!important}
+  .features-grid,.feat-auth-grid,.results-grid,.testi-lp-grid,.blog-grid,.hiw-steps{grid-template-columns:1fr!important}
+
+  footer{flex-direction:column!important;text-align:center;gap:0.4rem!important;padding:1rem 4%!important}
+
+  .hero-dash{padding:3.5rem 4% 2.5rem!important}
+  .hero-dash-btns{flex-direction:column;align-items:center}
+  .hero-auth-btns,.hero-corp-btns,.hero-lp-btns{flex-direction:column;align-items:stretch;max-width:100%!important}
+  .btn-orange-full,.btn-cyan,.btn-gold,.btn-violet,.btn-white,.btn-ghost-dash,.btn-ghost-auth,.btn-ghost-corp{width:100%;text-align:center;box-sizing:border-box}
+
+  .cta-dash,.cta-auth,.cta-lp,.cta-corp{padding:3rem 4%!important}
+  section{box-sizing:border-box}
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- HERO SECTION (outside app) -->
+<a href="index.html" class="back-badge">← Voltar ao site</a>
+
+<section class="hero-dash">
+  <div class="demo-label fu">📊 Admin Dashboard Analytics</div>
+  <h1 class="fu2">Dados que <span>guiam</span> decisões reais</h1>
+  <p class="fu2">Painel administrativo completo com gráficos em tempo real, relatórios automáticos e gestão total de dados.</p>
+  <div class="hero-dash-btns fu2">
+    <a href="#dashboard-demo" class="btn-violet">Ver demo ao vivo ↓</a>
+    <a href="index.html#contato" class="btn-ghost-dash">Solicitar orçamento</a>
+  </div>
+</section>
+
+<!-- DASHBOARD APP DEMO -->
+<div id="dashboard-demo" class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Data<span>Hub</span></div>
+    <div class="sb-section">
+      <div class="sb-section-label">Principal</div>
+      <a class="sb-link active"><span class="sb-icon">📊</span> Dashboard</a>
+      <a class="sb-link"><span class="sb-icon">📈</span> Analytics</a>
+      <a class="sb-link"><span class="sb-icon">👥</span> Usuários <span class="sb-badge">3</span></a>
+      <a class="sb-link"><span class="sb-icon">📦</span> Produtos</a>
+      <a class="sb-link"><span class="sb-icon">🛒</span> Pedidos</a>
+    </div>
+    <div class="sb-section">
+      <div class="sb-section-label">Relatórios</div>
+      <a class="sb-link"><span class="sb-icon">📋</span> Financeiro</a>
+      <a class="sb-link"><span class="sb-icon">📉</span> Funil</a>
+      <a class="sb-link"><span class="sb-icon">🗓️</span> Agendados</a>
+    </div>
+    <div class="sb-section" style="margin-top:auto">
+      <a class="sb-link"><span class="sb-icon">⚙️</span> Configurações</a>
+      <a class="sb-link"><span class="sb-icon">🔐</span> Segurança</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Dashboard Geral</h1>
+        <p>Domingo, 19 de Abril de 2026</p>
+      </div>
+      <div class="topbar-right">
+        <a href="index.html#contato" class="topbar-btn">+ Novo relatório</a>
+        <div class="avatar">👤</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- KPI CARDS -->
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-violet">
+          <div class="kpi-label">Receita Total</div>
+          <div class="kpi-value">R$ 84,2k</div>
+          <div class="kpi-change up">↑ 23,4% <span class="kpi-sub">vs mês anterior</span></div>
+        </div>
+        <div class="kpi-card kpi-emerald">
+          <div class="kpi-label">Novos Usuários</div>
+          <div class="kpi-value">1.847</div>
+          <div class="kpi-change up">↑ 12,1% <span class="kpi-sub">vs mês anterior</span></div>
+        </div>
+        <div class="kpi-card kpi-rose">
+          <div class="kpi-label">Taxa de Churn</div>
+          <div class="kpi-value">2,3%</div>
+          <div class="kpi-change down">↓ 0,5% <span class="kpi-sub">vs mês anterior</span></div>
+        </div>
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-label">Ticket Médio</div>
+          <div class="kpi-value">R$ 456</div>
+          <div class="kpi-change up">↑ 8,7% <span class="kpi-sub">vs mês anterior</span></div>
+        </div>
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Receita mensal</div>
+              <div class="chart-sub">Janeiro — Abril 2026</div>
+            </div>
+            <div class="period-tabs">
+              <div class="period-tab">7d</div>
+              <div class="period-tab">30d</div>
+              <div class="period-tab active">90d</div>
+              <div class="period-tab">1a</div>
+            </div>
+          </div>
+          <div class="line-chart-wrap">
+            <svg viewBox="0 0 400 150" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6366f1" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid lines -->
+              <line x1="0" y1="37" x2="400" y2="37" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <line x1="0" y1="75" x2="400" y2="75" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <line x1="0" y1="112" x2="400" y2="112" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <!-- Area fill -->
+              <path d="M0,120 C30,115 60,100 80,90 C100,80 120,110 150,85 C180,60 210,70 240,55 C270,40 300,60 330,35 C360,15 380,20 400,10 L400,150 L0,150 Z" fill="url(#lineGrad)"/>
+              <!-- Line -->
+              <path d="M0,120 C30,115 60,100 80,90 C100,80 120,110 150,85 C180,60 210,70 240,55 C270,40 300,60 330,35 C360,15 380,20 400,10" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Dots -->
+              <circle cx="80" cy="90" r="4" fill="#6366f1" stroke="#06080d" stroke-width="2"/>
+              <circle cx="240" cy="55" r="4" fill="#6366f1" stroke="#06080d" stroke-width="2"/>
+              <circle cx="400" cy="10" r="4" fill="#6366f1" stroke="#06080d" stroke-width="2"/>
+            </svg>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);margin-top:0.5rem">
+            <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Canais de aquisição</div>
+              <div class="chart-sub">Abril 2026</div>
+            </div>
+          </div>
+          <div class="donut-wrap">
+            <div class="donut-svg">
+              <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="45" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="20"/>
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#6366f1" stroke-width="20" stroke-dasharray="127 283" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#10b981" stroke-width="20" stroke-dasharray="85 283" stroke-dashoffset="-127" transform="rotate(-90 60 60)"/>
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#f59e0b" stroke-width="20" stroke-dasharray="56 283" stroke-dashoffset="-212" transform="rotate(-90 60 60)"/>
+                <text x="60" y="57" text-anchor="middle" font-size="14" font-weight="800" fill="#e2e8f0" font-family="Lexend">45%</text>
+                <text x="60" y="70" text-anchor="middle" font-size="9" fill="#4a5568" font-family="Inter">Orgânico</text>
+              </svg>
+            </div>
+            <div class="donut-legend">
+              <div class="donut-item"><span><span class="donut-dot" style="background:#6366f1"></span>Orgânico (SEO)</span><strong>45%</strong></div>
+              <div class="donut-item"><span><span class="donut-dot" style="background:#10b981"></span>Redes Sociais</span><strong>30%</strong></div>
+              <div class="donut-item"><span><span class="donut-dot" style="background:#f59e0b"></span>Tráfego Pago</span><strong>20%</strong></div>
+              <div class="donut-item"><span><span class="donut-dot" style="background:#555"></span>Direto</span><strong>5%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS TABLE -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Usuários recentes</h3>
+          <input class="table-search" placeholder="🔍 Buscar usuário...">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Usuário</th>
+              <th>Plano</th>
+              <th>Status</th>
+              <th>Receita</th>
+              <th>Cadastro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="user-cell"><div class="user-av">👨‍💼</div><div><div class="user-name">Carlos Mendes</div><div class="user-email">carlos@empresa.com</div></div></div></td>
+              <td><span style="color:var(--violet);font-weight:600">Elite</span></td>
+              <td><span class="status status-active">Ativo</span></td>
+              <td style="font-weight:700">R$ 2.497</td>
+              <td style="color:var(--muted)">15 Abr 2026</td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="user-av">👩‍💻</div><div><div class="user-name">Ana Costa</div><div class="user-email">ana@techstart.com.br</div></div></div></td>
+              <td><span style="color:var(--emerald);font-weight:600">Pro</span></td>
+              <td><span class="status status-active">Ativo</span></td>
+              <td style="font-weight:700">R$ 1.297</td>
+              <td style="color:var(--muted)">10 Abr 2026</td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="user-av">👨‍🚀</div><div><div class="user-name">Rafael Oliveira</div><div class="user-email">rafael@lanchesfast.com</div></div></div></td>
+              <td><span style="color:var(--amber);font-weight:600">Start</span></td>
+              <td><span class="status status-pending">Pendente</span></td>
+              <td style="font-weight:700">R$ 497</td>
+              <td style="color:var(--muted)">8 Abr 2026</td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="user-av">👩‍🔬</div><div><div class="user-name">Mariana Silva</div><div class="user-email">mariana@saude360.com</div></div></div></td>
+              <td><span style="color:var(--violet);font-weight:600">Elite</span></td>
+              <td><span class="status status-active">Ativo</span></td>
+              <td style="font-weight:700">R$ 2.497</td>
+              <td style="color:var(--muted)">2 Abr 2026</td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="user-av">👨‍🎨</div><div><div class="user-name">Bruno Ferreira</div><div class="user-email">bruno@design.studio</div></div></div></td>
+              <td><span style="color:var(--muted);font-weight:600">Free</span></td>
+              <td><span class="status status-inactive">Inativo</span></td>
+              <td style="font-weight:700;color:var(--muted)">R$ 0</td>
+              <td style="color:var(--muted)">28 Mar 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app-layout -->
+
+<!-- CTA -->
+<section class="cta-dash">
+  <div style="display:inline-block;font-size:0.72rem;font-weight:700;color:var(--violet);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;padding:0.3rem 0.8rem;background:var(--violet-glow);border:1px solid rgba(99,102,241,0.2);border-radius:50px">Pronto para ter o seu?</div>
+  <h2>Dashboard <span>personalizado</span><br>para o seu negócio</h2>
+  <p>Desenvolvemos painéis administrativos sob medida com os dados que realmente importam para você.</p>
+  <a href="index.html#contato" class="btn-violet">Solicitar orçamento grátis →</a>
+</section>
+
+<footer class="dash-footer">
+  <div style="font-family:'Lexend',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text)">Data<span style="color:var(--violet)">Hub</span></div>
+  <div class="footer-note">Desenvolvido por <a href="index.html">LYVON</a> • Projeto real disponível sob orçamento</div>
+  <div class="footer-note">© 2026 LYVON — Todos os direitos reservados.</div>
+</footer>
+
+</body>
+</html>

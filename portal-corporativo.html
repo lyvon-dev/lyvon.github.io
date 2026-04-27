@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Corporativo — LYVON Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0b0c10;
+  --ink2: #141620;
+  --ink3: #1c1f2e;
+  --gold: #c9a84c;
+  --gold-dim: #a8873a;
+  --gold-glow: rgba(201,168,76,0.1);
+  --slate: #8a8fa8;
+  --cream: #f0ede6;
+  --border: rgba(255,255,255,0.06);
+  --r: 14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* BACK BADGE */
+.back-badge {
+  background: transparent;
+  border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.4rem 0.9rem; font-size: 0.75rem; font-weight: 600;
+  color: var(--slate, #888); text-decoration: none;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.back-badge:hover{color:var(--cream);border-color:rgba(255,255,255,0.15)}
+.syntech-badge {
+  background: var(--accent, var(--violet, var(--cyan, var(--orange, var(--gold, #00ff88)))));
+  color: #000; border-radius: 50px;
+  padding: 0.35rem 0.9rem; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+}
+
+/* NAV */
+nav {
+  padding: 1.2rem 5%; display: flex; align-items: center;
+  justify-content: space-between; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,12,16,0.9); backdrop-filter: blur(20px);
+}
+.logo-corp {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800;
+  letter-spacing: -0.01em; color: var(--cream);
+}
+.logo-corp span{color:var(--gold)}
+.nav-links-corp{display:flex;gap:2rem;list-style:none}
+.nav-links-corp a{color:var(--slate);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}
+.nav-links-corp a:hover{color:var(--cream)}
+.nav-btn-corp{
+  background:var(--gold);color:#000;padding:0.55rem 1.4rem;border-radius:8px;
+  font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;
+}
+.nav-btn-corp:hover{background:var(--gold-dim);transform:translateY(-1px)}
+
+/* HERO */
+.hero-corp{
+  min-height: 88vh; display:flex; align-items:center;
+  padding: 6rem 5% 4rem; position:relative; overflow:hidden;
+}
+.hero-bg-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at 30% 50%, black 30%, transparent 70%);
+  pointer-events:none;
+}
+.hero-orb-corp{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 65%);
+  filter:blur(60px);top:-100px;right:-100px;pointer-events:none;
+}
+.hero-corp-content{position:relative;z-index:2;max-width:680px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.8rem;
+  border-left:2px solid var(--gold);padding-left:0.8rem;
+}
+.hero-corp h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,5.5vw,4.6rem);
+  font-weight:900;line-height:1.06;letter-spacing:-0.02em;
+  margin-bottom:1.6rem;color:var(--cream);
+}
+.hero-corp h1 em{color:var(--gold);font-style:normal}
+.hero-corp p{
+  color:var(--slate);font-size:1.05rem;line-height:1.8;
+  max-width:500px;margin-bottom:2.5rem;font-weight:400;
+}
+.hero-corp-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{
+  background:var(--gold);color:#000;padding:0.9rem 2rem;border-radius:9px;
+  font-weight:700;font-size:0.92rem;text-decoration:none;transition:all 0.25s;
+}
+.btn-gold:hover{background:var(--gold-dim);transform:translateY(-2px);box-shadow:0 12px 35px rgba(201,168,76,0.35)}
+.btn-ghost-corp{
+  border:1px solid rgba(201,168,76,0.3);color:var(--cream);
+  padding:0.9rem 2rem;border-radius:9px;font-weight:600;font-size:0.92rem;
+  text-decoration:none;transition:all 0.25s;background:rgba(201,168,76,0.04);
+}
+.btn-ghost-corp:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* STATS ROW */
+.stats-row{
+  display:flex;gap:3rem;margin-top:4rem;padding-top:2.5rem;
+  border-top:1px solid var(--border);flex-wrap:wrap;
+}
+.stat-corp h3{
+  font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;
+  color:var(--gold);letter-spacing:-0.02em;
+}
+.stat-corp p{font-size:0.8rem;color:var(--slate);margin-top:0.2rem;font-weight:500}
+
+/* FEATURES */
+.features-corp{
+  padding:6rem 5%;background:var(--ink2);
+}
+.features-corp .section-title{
+  font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:800;letter-spacing:-0.02em;color:var(--cream);margin-bottom:0.8rem;
+}
+.features-corp .section-sub{color:var(--slate);font-size:1rem;max-width:500px;line-height:1.7;margin-bottom:3.5rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.feat-card{
+  background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);
+  padding:2rem;transition:all 0.35s;position:relative;overflow:hidden;
+}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.feat-card:hover{border-color:rgba(201,168,76,0.25);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+.feat-card:hover::before{opacity:1}
+.feat-icon{font-size:2rem;margin-bottom:1.2rem}
+.feat-card h4{font-weight:700;font-size:1rem;margin-bottom:0.6rem;color:var(--cream)}
+.feat-card p{color:var(--slate);font-size:0.86rem;line-height:1.65}
+
+/* ADMIN MOCKUP */
+.admin-section{padding:6rem 5%;background:var(--ink)}
+.admin-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.admin-text .eyebrow{margin-bottom:1.2rem}
+.admin-text h2{
+  font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);
+  font-weight:800;margin-bottom:1.2rem;color:var(--cream);letter-spacing:-0.02em;
+}
+.admin-text p{color:var(--slate);font-size:0.95rem;line-height:1.75;margin-bottom:1.8rem}
+.admin-checklist{display:flex;flex-direction:column;gap:0.8rem}
+.admin-check{display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;font-weight:500}
+.admin-check::before{
+  content:'✓';width:20px;height:20px;background:rgba(201,168,76,0.15);
+  border:1px solid rgba(201,168,76,0.4);border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.7rem;color:var(--gold);flex-shrink:0;
+}
+/* Admin UI mockup */
+.admin-mockup{
+  background:var(--ink2);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.5);
+}
+.mockup-topbar{
+  background:var(--ink3);padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:1rem;
+}
+.mockup-dots{display:flex;gap:5px}
+.mockup-dot{width:10px;height:10px;border-radius:50%}
+.mockup-body{display:flex}
+.mockup-sidebar{
+  width:160px;background:var(--ink);padding:1rem 0;
+  border-right:1px solid var(--border);flex-shrink:0;
+}
+.sb-item{
+  padding:0.65rem 1.2rem;font-size:0.76rem;color:var(--slate);
+  display:flex;align-items:center;gap:0.6rem;transition:all 0.2s;cursor:default;
+}
+.sb-item.active{color:var(--gold);background:rgba(201,168,76,0.08);border-right:2px solid var(--gold)}
+.sb-item:hover:not(.active){color:var(--cream)}
+.mockup-main{flex:1;padding:1.2rem}
+.mkp-title{font-size:0.85rem;font-weight:700;margin-bottom:1rem;color:var(--cream)}
+.mkp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;margin-bottom:1rem}
+.mkp-stat{
+  background:var(--ink3);border:1px solid var(--border);border-radius:8px;
+  padding:0.8rem;
+}
+.mkp-stat-val{font-size:1.1rem;font-weight:700;color:var(--gold)}
+.mkp-stat-lbl{font-size:0.66rem;color:var(--slate);margin-top:0.2rem}
+.mkp-chart{
+  background:var(--ink3);border:1px solid var(--border);border-radius:8px;padding:0.8rem;
+}
+.mkp-chart-lbl{font-size:0.7rem;color:var(--slate);margin-bottom:0.6rem}
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:50px}
+.chart-bar{background:rgba(201,168,76,0.3);border-radius:3px 3px 0 0;flex:1;transition:all 0.3s}
+.chart-bar:hover{background:var(--gold)}
+
+/* BLOG */
+.blog-section{padding:6rem 5%;background:var(--ink2)}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.blog-card{
+  background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;transition:all 0.35s;
+}
+.blog-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,0.25);box-shadow:0 25px 60px rgba(0,0,0,0.4)}
+.blog-thumb{
+  height:160px;display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;position:relative;
+}
+.bt1{background:linear-gradient(135deg,#0a1520,#102030)}
+.bt2{background:linear-gradient(135deg,#150a20,#200a30)}
+.bt3{background:linear-gradient(135deg,#1a1200,#2a1c00)}
+.blog-content{padding:1.4rem}
+.blog-cat{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.blog-card h4{font-weight:700;font-size:0.95rem;margin-bottom:0.6rem;line-height:1.4}
+.blog-card p{color:var(--slate);font-size:0.83rem;line-height:1.6;margin-bottom:1rem}
+.blog-meta{font-size:0.75rem;color:var(--slate);display:flex;align-items:center;gap:0.5rem}
+.blog-dot{width:3px;height:3px;background:var(--slate);border-radius:50%}
+
+/* CTA */
+.cta-corp{
+  padding:6rem 5%;text-align:center;
+  background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);
+  position:relative;overflow:hidden;
+}
+.cta-corp::before{
+  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:300px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-corp h2{
+  font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:900;letter-spacing:-0.02em;color:var(--cream);margin-bottom:1.2rem;
+}
+.cta-corp p{color:var(--slate);font-size:1rem;max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+
+/* FOOTER */
+footer.corp-footer{
+  padding:1.8rem 5%;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  background:var(--ink);
+}
+.footer-note{font-size:0.78rem;color:var(--slate)}
+.footer-note a{color:var(--gold);text-decoration:none}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.7s ease both}
+.fade-up-2{animation:fadeUp 0.7s 0.1s ease both}
+.fade-up-3{animation:fadeUp 0.7s 0.2s ease both}
+.fade-up-4{animation:fadeUp 0.7s 0.3s ease both}
+
+@media(max-width:900px){
+  .admin-inner{grid-template-columns:1fr}
+  .admin-mockup{display:none}
+  .nav-links-corp{display:none}
+}
+
+/* ========== MOBILE RESPONSIVO ========== */
+@media(max-width:768px){
+  nav{padding:0.7rem 3%;gap:0.4rem;flex-wrap:nowrap}
+  .nav-lp-links,.nav-auth-links,.nav-links-corp{display:none!important}
+  .nav-lp-btn,.nav-auth-btn,.nav-btn-corp{display:none!important}
+  .back-badge{font-size:0.68rem;padding:0.35rem 0.7rem}
+  .syntech-badge{font-size:0.62rem;padding:0.3rem 0.7rem}
+  .logo,.logo-lp,.logo-auth,.logo-corp,.logo-auth,.sidebar-logo{font-size:0.95rem!important}
+
+  .hero-lp,.hero-auth{grid-template-columns:1fr!important;gap:1.5rem!important;padding:4rem 4% 2.5rem!important;min-height:auto!important}
+  .hero-lp-right,.auth-mockup-wrap{display:none!important}
+  .hero-corp{padding:4rem 4% 2.5rem!important;min-height:auto!important}
+  .hero-corp h1,.hero-lp h1,.hero-auth h1{font-size:1.9rem!important}
+  .stats-row{gap:1rem;flex-wrap:wrap}
+  .stat-corp h3{font-size:1.5rem!important}
+
+  .sidebar{display:none!important}
+  .main{margin-left:0!important;width:100%!important}
+  .app-layout{overflow-x:hidden}
+  .topbar{padding:0.6rem 0.8rem!important}
+  .topbar-left h1{font-size:0.82rem}
+  .topbar-right .avatar{display:none}
+  .topbar-btn{padding:0.35rem 0.6rem;font-size:0.68rem}
+  .content{padding:0.8rem!important;overflow-x:hidden}
+
+  .kpi-grid{grid-template-columns:repeat(2,1fr)!important;gap:0.6rem!important}
+  .kpi-value{font-size:1.3rem!important}
+  .kpi-card{padding:0.9rem!important}
+  .charts-row{grid-template-columns:1fr!important;gap:0.8rem!important}
+
+  .table-card{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:500px}
+  th{padding:0.55rem 0.7rem!important;font-size:0.66rem!important}
+  td{padding:0.65rem 0.7rem!important;font-size:0.76rem!important}
+  .table-search{width:110px!important;font-size:0.68rem}
+  .table-header{flex-wrap:wrap;gap:0.4rem;padding:0.7rem 0.8rem!important}
+
+  .feat-auth-grid{grid-template-columns:1fr!important}
+  .perms-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .perms-table{min-width:460px}
+  .perms-table th,.perms-table td{padding:0.55rem 0.6rem!important;font-size:0.73rem!important}
+
+  .admin-inner{grid-template-columns:1fr!important;gap:1.5rem!important}
+  .admin-mockup{display:none!important}
+  .features-grid,.feat-auth-grid,.results-grid,.testi-lp-grid,.blog-grid,.hiw-steps{grid-template-columns:1fr!important}
+
+  footer{flex-direction:column!important;text-align:center;gap:0.4rem!important;padding:1rem 4%!important}
+
+  .hero-dash{padding:3.5rem 4% 2.5rem!important}
+  .hero-dash-btns{flex-direction:column;align-items:center}
+  .hero-auth-btns,.hero-corp-btns,.hero-lp-btns{flex-direction:column;align-items:stretch;max-width:100%!important}
+  .btn-orange-full,.btn-cyan,.btn-gold,.btn-violet,.btn-white,.btn-ghost-dash,.btn-ghost-auth,.btn-ghost-corp{width:100%;text-align:center;box-sizing:border-box}
+
+  .cta-dash,.cta-auth,.cta-lp,.cta-corp{padding:3rem 4%!important}
+  section{box-sizing:border-box}
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <div class="logo-corp">Nexus<span>Corp</span></div>
+  <ul class="nav-links-corp">
+    <li><a href="#">Empresa</a></li>
+    <li><a href="#">Soluções</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Carreiras</a></li>
+    <li><a href="#">Contato</a></li>
+  </ul>
+  <a href="#" class="nav-btn-corp">Falar com especialista</a>
+  <a href="index.html" class="back-badge">← Voltar ao site</a>
+  <div class="syntech-badge">LYVON — DEMO</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-corp">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb-corp"></div>
+  <div class="hero-corp-content">
+    <div class="eyebrow fade-up">🏢 Portal Corporativo</div>
+    <h1 class="fade-up-2">Tecnologia que <em>impulsiona</em> empresas reais</h1>
+    <p class="fade-up-3">Soluções digitais corporativas com painel administrativo completo, blog integrado e otimização SEO avançada para aumentar sua presença online.</p>
+    <div class="hero-corp-btns fade-up-4">
+      <a href="#" class="btn-gold">Solicitar demonstração</a>
+      <a href="#" class="btn-ghost-corp">Ver casos de sucesso</a>
+    </div>
+    <div class="stats-row fade-up-4">
+      <div class="stat-corp"><h3>+200</h3><p>Empresas atendidas</p></div>
+      <div class="stat-corp"><h3>98%</h3><p>Satisfação dos clientes</p></div>
+      <div class="stat-corp"><h3>5 dias</h3><p>Tempo médio de entrega</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-corp">
+  <div class="eyebrow">Funcionalidades</div>
+  <div class="section-title">Tudo que sua empresa precisa</div>
+  <p class="section-sub">Um portal completo com todas as ferramentas para gerenciar, publicar e crescer.</p>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">⚙️</div>
+      <h4>Painel Administrativo</h4>
+      <p>Gerencie conteúdo, usuários e configurações com interface intuitiva e controle total.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">✍️</div>
+      <h4>Blog Integrado</h4>
+      <p>Editor rico para publicações, categorias, tags, SEO por post e agendamento de conteúdo.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔍</div>
+      <h4>SEO Avançado</h4>
+      <p>Meta tags dinâmicas, sitemap automático, schema markup e análise de palavras-chave.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <h4>Analytics em Tempo Real</h4>
+      <p>Visualize visitas, conversões, tempo na página e fontes de tráfego ao vivo.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔐</div>
+      <h4>Controle de Acesso</h4>
+      <p>Multi-usuário com níveis de permissão: admin, editor, colaborador e leitor.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📱</div>
+      <h4>100% Responsivo</h4>
+      <p>Design adaptativo para desktop, tablet e mobile com performance de 99/100 no PageSpeed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN SECTION -->
+<section class="admin-section">
+  <div class="admin-inner">
+    <div class="admin-text">
+      <div class="eyebrow">Painel Administrativo</div>
+      <h2>Controle total na palma da mão</h2>
+      <p>Interface administrativa moderna e intuitiva. Publique artigos, gerencie usuários e acompanhe métricas — tudo em um só lugar.</p>
+      <div class="admin-checklist">
+        <div class="admin-check">Editor de conteúdo WYSIWYG com preview ao vivo</div>
+        <div class="admin-check">Gestão completa de usuários e permissões</div>
+        <div class="admin-check">Upload e biblioteca de mídia integrada</div>
+        <div class="admin-check">Backups automáticos diários na nuvem</div>
+        <div class="admin-check">Relatórios exportáveis em PDF e Excel</div>
+      </div>
+    </div>
+    <div class="admin-mockup">
+      <div class="mockup-topbar">
+        <div class="mockup-dots">
+          <div class="mockup-dot" style="background:#ff5f57"></div>
+          <div class="mockup-dot" style="background:#febc2e"></div>
+          <div class="mockup-dot" style="background:#28c840"></div>
+        </div>
+        <div style="font-size:0.7rem;color:#555;margin-left:0.5rem">admin.nexuscorp.com.br</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="sb-item active">📊 Dashboard</div>
+          <div class="sb-item">✍️ Blog</div>
+          <div class="sb-item">👥 Usuários</div>
+          <div class="sb-item">🖼️ Mídia</div>
+          <div class="sb-item">🔍 SEO</div>
+          <div class="sb-item">⚙️ Config.</div>
+        </div>
+        <div class="mockup-main">
+          <div class="mkp-title">Visão Geral — Junho 2025</div>
+          <div class="mkp-grid">
+            <div class="mkp-stat">
+              <div class="mkp-stat-val">12.4k</div>
+              <div class="mkp-stat-lbl">Visitas</div>
+            </div>
+            <div class="mkp-stat">
+              <div class="mkp-stat-val">847</div>
+              <div class="mkp-stat-lbl">Leads</div>
+            </div>
+            <div class="mkp-stat">
+              <div class="mkp-stat-val" style="color:#28c840">6.8%</div>
+              <div class="mkp-stat-lbl">Conversão</div>
+            </div>
+          </div>
+          <div class="mkp-chart">
+            <div class="mkp-chart-lbl">Tráfego semanal</div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height:35%"></div>
+              <div class="chart-bar" style="height:55%"></div>
+              <div class="chart-bar" style="height:45%"></div>
+              <div class="chart-bar" style="height:70%"></div>
+              <div class="chart-bar" style="height:60%"></div>
+              <div class="chart-bar" style="height:85%"></div>
+              <div class="chart-bar" style="height:100%;background:var(--gold)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section">
+  <div class="eyebrow">Blog Integrado</div>
+  <div class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--cream);letter-spacing:-0.02em">Publique, engaje, converta</div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-thumb bt1">📈</div>
+      <div class="blog-content">
+        <div class="blog-cat">Estratégia</div>
+        <h4>Como aumentar sua presença digital em 2025</h4>
+        <p>As 5 estratégias que empresas líderes usam para dominar os resultados de busca.</p>
+        <div class="blog-meta">12 Jun 2025 <div class="blog-dot"></div> 5 min leitura</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-thumb bt2">🤖</div>
+      <div class="blog-content">
+        <div class="blog-cat">Tecnologia</div>
+        <h4>Inteligência Artificial no seu portal corporativo</h4>
+        <p>Automatize respostas, recomende conteúdo e personalize a experiência do visitante.</p>
+        <div class="blog-meta">8 Jun 2025 <div class="blog-dot"></div> 7 min leitura</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-thumb bt3">🎯</div>
+      <div class="blog-content">
+        <div class="blog-cat">Marketing</div>
+        <h4>SEO técnico: o guia definitivo para 2025</h4>
+        <p>Tudo sobre Core Web Vitals, schema markup e otimização para motores de busca modernos.</p>
+        <div class="blog-meta">2 Jun 2025 <div class="blog-dot"></div> 9 min leitura</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-corp">
+  <div class="eyebrow" style="justify-content:center;display:inline-flex">🚀 Pronto para começar?</div>
+  <h2>Seu portal corporativo<br><em style="color:var(--gold);font-style:normal">entregue em 7 dias</em></h2>
+  <p>Desenvolvemos sites institucionais completos, modernos e prontos para converter visitantes em clientes.</p>
+  <a href="index.html#contato" class="btn-gold">Solicitar orçamento grátis →</a>
+</section>
+
+<footer class="corp-footer">
+  <div class="logo-corp" style="font-size:1rem">Nexus<span>Corp</span></div>
+  <div class="footer-note">Desenvolvido por <a href="index.html">LYVON</a> • Projeto real disponível sob orçamento</div>
+  <div class="footer-note">© 2026 LYVON — Todos os direitos reservados.</div>
+</footer>
+
+</body>
+</html>

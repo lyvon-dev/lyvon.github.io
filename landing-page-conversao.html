@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page de Alta Conversão — LYVON Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf9;--bg2:#f5f3f0;--bg3:#eeecea;
+  --ink:#0d0d0b;--ink2:#1a1a18;
+  --orange:#ff4d00;--orange-dim:#d94000;--orange-glow:rgba(255,77,0,0.08);
+  --muted:#6b6b65;--border:rgba(0,0,0,0.07);--r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+
+/* BACK */
+.back-badge {
+  background: transparent;
+  border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.4rem 0.9rem; font-size: 0.75rem; font-weight: 600;
+  color: var(--slate, #888); text-decoration: none;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.back-badge:hover{color:var(--ink)}
+.syntech-badge {
+  background: var(--accent, var(--violet, var(--cyan, var(--orange, var(--gold, #00ff88)))));
+  color: #000; border-radius: 50px;
+  padding: 0.35rem 0.9rem; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+}
+
+/* NAV */
+nav{
+  padding:1.1rem 5%;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;
+  background:rgba(250,250,249,0.94);backdrop-filter:blur(20px);
+}
+.logo-lp{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--ink);letter-spacing:-0.03em}
+.logo-lp span{color:var(--orange)}
+.nav-lp-links{display:flex;gap:2rem;list-style:none}
+.nav-lp-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}
+.nav-lp-links a:hover{color:var(--ink)}
+.nav-lp-btn{
+  background:var(--orange);color:#fff;padding:0.55rem 1.4rem;border-radius:8px;
+  font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;
+}
+.nav-lp-btn:hover{background:var(--orange-dim);transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,77,0,0.3)}
+
+/* HERO */
+.hero-lp{
+  padding:7rem 5% 5rem;display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#fff 0%,var(--bg2) 100%);
+}
+.hero-lp::before{
+  content:'';position:absolute;top:-100px;right:-200px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,77,0,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-lp-text{position:relative;z-index:2}
+.lp-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(255,77,0,0.07);border:1px solid rgba(255,77,0,0.2);
+  color:var(--orange);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.4rem 1rem;border-radius:50px;margin-bottom:1.8rem;
+}
+.hero-lp h1{
+  font-family:'Fraunces',serif;font-size:clamp(2.6rem,4.5vw,4rem);
+  font-weight:900;line-height:1.05;letter-spacing:-0.03em;
+  margin-bottom:1.4rem;color:var(--ink);
+}
+.hero-lp h1 em{color:var(--orange);font-style:normal}
+.hero-lp p{color:var(--muted);font-size:1.05rem;line-height:1.75;max-width:460px;margin-bottom:2.2rem;font-weight:400}
+.hero-lp-btns{display:flex;flex-direction:column;gap:0.8rem;max-width:360px}
+.btn-orange-full{
+  background:var(--orange);color:#fff;padding:1.1rem 2rem;border-radius:10px;
+  font-weight:800;font-size:1rem;text-decoration:none;transition:all 0.25s;text-align:center;
+  box-shadow:0 4px 20px rgba(255,77,0,0.25);
+}
+.btn-orange-full:hover{background:var(--orange-dim);transform:translateY(-2px);box-shadow:0 12px 35px rgba(255,77,0,0.35)}
+.hero-sub-note{
+  font-size:0.78rem;color:var(--muted);text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:0.4rem;
+}
+/* Social proof row */
+.social-proof-row{
+  display:flex;align-items:center;gap:1rem;margin-top:1.5rem;
+  padding-top:1.5rem;border-top:1px solid var(--border);
+}
+.proof-avatars{display:flex}
+.proof-avatar{
+  width:32px;height:32px;border-radius:50%;border:2px solid #fff;
+  background:var(--bg3);display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;margin-left:-8px;
+}
+.proof-avatar:first-child{margin-left:0}
+.proof-text{font-size:0.8rem;color:var(--muted)}
+.proof-text strong{color:var(--ink)}
+.proof-stars{color:var(--orange);font-size:0.85rem}
+
+/* HERO RIGHT — mockup */
+.hero-lp-right{position:relative;z-index:2}
+.lp-mockup{
+  background:#fff;border:1px solid var(--border);border-radius:20px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.1),0 8px 20px rgba(255,77,0,0.05);
+  overflow:hidden;
+}
+.lp-mockup-bar{
+  background:var(--bg2);padding:0.9rem 1.2rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.7rem;
+}
+.lp-mockup-dots{display:flex;gap:5px}
+.lp-mockup-dot{width:11px;height:11px;border-radius:50%}
+.url-bar{
+  flex:1;background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:0.3rem 0.8rem;font-size:0.72rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;
+}
+.url-lock{color:var(--orange);font-size:0.7rem}
+.lp-mockup-body{padding:1.5rem}
+/* Mini landing page inside mockup */
+.mini-hero{
+  background:linear-gradient(135deg,#fff5f2 0%,#fff 100%);
+  border:1px solid rgba(255,77,0,0.1);border-radius:12px;
+  padding:1.5rem;text-align:center;margin-bottom:1rem;
+}
+.mini-tag{
+  display:inline-block;background:rgba(255,77,0,0.08);color:var(--orange);
+  font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.2rem 0.6rem;border-radius:50px;margin-bottom:0.8rem;
+}
+.mini-h1{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--ink);margin-bottom:0.5rem;letter-spacing:-0.02em}
+.mini-p{font-size:0.72rem;color:var(--muted);margin-bottom:0.8rem}
+.mini-btn{
+  display:inline-block;background:var(--orange);color:#fff;font-size:0.75rem;font-weight:700;
+  padding:0.55rem 1.4rem;border-radius:7px;text-decoration:none;
+}
+.mini-form{
+  background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;
+}
+.mini-form-title{font-size:0.78rem;font-weight:700;color:var(--ink);margin-bottom:0.7rem}
+.mini-input{
+  width:100%;background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:0.5rem 0.8rem;font-size:0.72rem;color:var(--ink);margin-bottom:0.5rem;
+  font-family:'Plus Jakarta Sans',sans-serif;outline:none;
+}
+.mini-submit{width:100%;background:var(--orange);color:#fff;border:none;border-radius:6px;padding:0.55rem;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
+/* Conversion counter */
+.conv-badge{
+  display:flex;align-items:center;gap:0.5rem;margin-top:0.8rem;
+  background:#f0fff4;border:1px solid #bbf7d0;border-radius:8px;padding:0.5rem 0.8rem;
+  font-size:0.72rem;color:#166534;
+}
+.conv-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* HOW IT WORKS */
+.hiw-section{padding:6rem 5%;background:var(--bg)}
+.hiw-header{text-align:center;margin-bottom:4rem}
+.hiw-header h2{
+  font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:900;letter-spacing:-0.03em;margin-bottom:0.8rem;
+}
+.hiw-header p{color:var(--muted);font-size:1rem;max-width:460px;margin:0 auto}
+.hiw-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;position:relative}
+.hiw-connector{
+  display:none;
+}
+.hiw-step{text-align:center;padding:0 1rem}
+.step-num{
+  width:52px;height:52px;border-radius:50%;margin:0 auto 1.2rem;
+  background:var(--orange);color:#fff;font-family:'Fraunces',serif;
+  font-size:1.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 20px rgba(255,77,0,0.3);
+}
+.hiw-step h4{font-weight:700;font-size:1rem;margin-bottom:0.5rem;color:var(--ink)}
+.hiw-step p{color:var(--muted);font-size:0.85rem;line-height:1.65}
+
+/* RESULTS */
+.results-section{padding:6rem 5%;background:var(--ink);color:#fff}
+.results-header{text-align:center;margin-bottom:4rem}
+.results-header h2{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.8rem}
+.results-header h2 span{color:var(--orange)}
+.results-header p{color:#666;font-size:1rem;max-width:460px;margin:0 auto}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
+.result-card{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
+  border-radius:var(--r);padding:2rem;text-align:center;transition:all 0.3s;
+}
+.result-card:hover{background:rgba(255,77,0,0.06);border-color:rgba(255,77,0,0.2);transform:translateY(-4px)}
+.result-num{
+  font-family:'Fraunces',serif;font-size:2.8rem;font-weight:900;
+  color:var(--orange);letter-spacing:-0.04em;margin-bottom:0.3rem;
+}
+.result-label{font-size:0.85rem;font-weight:600;margin-bottom:0.4rem}
+.result-sub{font-size:0.78rem;color:#666}
+
+/* TESTIMONIALS */
+.testi-lp{padding:6rem 5%;background:var(--bg2)}
+.testi-lp-header{text-align:center;margin-bottom:3.5rem}
+.testi-lp-header h2{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.6rem}
+.testi-lp-header p{color:var(--muted);font-size:0.95rem}
+.testi-lp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.testi-lp-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r);
+  padding:1.8rem;transition:all 0.3s;
+}
+.testi-lp-card:hover{border-color:rgba(255,77,0,0.2);transform:translateY(-4px);box-shadow:0 15px 40px rgba(0,0,0,0.06)}
+.testi-lp-stars{color:var(--orange);font-size:0.85rem;margin-bottom:1rem}
+.testi-lp-card p{color:var(--muted);font-size:0.88rem;line-height:1.7;margin-bottom:1.2rem;font-style:italic}
+.testi-lp-author{display:flex;align-items:center;gap:0.7rem}
+.tl-av{width:36px;height:36px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.tl-info strong{font-size:0.85rem;font-weight:700;color:var(--ink);display:block}
+.tl-info span{font-size:0.75rem;color:var(--muted)}
+/* Result highlight in card */
+.result-highlight{
+  display:inline-block;background:rgba(255,77,0,0.08);border:1px solid rgba(255,77,0,0.15);
+  color:var(--orange);font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;
+  margin-bottom:0.8rem;
+}
+
+/* CTA */
+.cta-lp{
+  padding:7rem 5%;text-align:center;
+  background:linear-gradient(135deg,var(--orange) 0%,var(--orange-dim) 100%);
+  position:relative;overflow:hidden;
+}
+.cta-lp::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,0.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.cta-lp h2{
+  font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:900;letter-spacing:-0.03em;color:#fff;margin-bottom:1rem;
+}
+.cta-lp p{color:rgba(255,255,255,0.75);font-size:1rem;max-width:440px;margin:0 auto 2.5rem;line-height:1.7}
+.btn-white{
+  background:#fff;color:var(--orange);padding:1rem 2.5rem;border-radius:10px;
+  font-weight:800;font-size:0.95rem;text-decoration:none;transition:all 0.25s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);display:inline-block;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,0.2)}
+.cta-note{color:rgba(255,255,255,0.65);font-size:0.78rem;margin-top:1.2rem}
+
+footer.lp-footer{
+  padding:1.5rem 5%;border-top:1px solid var(--border);background:var(--bg);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-note{font-size:0.77rem;color:var(--muted)}
+.footer-note a{color:var(--orange);text-decoration:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp 0.7s ease both}
+.fu2{animation:fadeUp 0.7s 0.1s ease both}
+.fu3{animation:fadeUp 0.7s 0.2s ease both}
+
+@media(max-width:900px){
+  .hero-lp{grid-template-columns:1fr;gap:3rem}
+  .hero-lp-right{display:none}
+  .nav-lp-links{display:none}
+}
+
+/* ========== MOBILE RESPONSIVO ========== */
+@media(max-width:768px){
+  nav{padding:0.7rem 3%;gap:0.4rem;flex-wrap:nowrap}
+  .nav-lp-links,.nav-auth-links,.nav-links-corp{display:none!important}
+  .nav-lp-btn,.nav-auth-btn,.nav-btn-corp{display:none!important}
+  .back-badge{font-size:0.68rem;padding:0.35rem 0.7rem}
+  .syntech-badge{font-size:0.62rem;padding:0.3rem 0.7rem}
+  .logo,.logo-lp,.logo-auth,.logo-corp,.logo-auth,.sidebar-logo{font-size:0.95rem!important}
+
+  .hero-lp,.hero-auth{grid-template-columns:1fr!important;gap:1.5rem!important;padding:4rem 4% 2.5rem!important;min-height:auto!important}
+  .hero-lp-right,.auth-mockup-wrap{display:none!important}
+  .hero-corp{padding:4rem 4% 2.5rem!important;min-height:auto!important}
+  .hero-corp h1,.hero-lp h1,.hero-auth h1{font-size:1.9rem!important}
+  .stats-row{gap:1rem;flex-wrap:wrap}
+  .stat-corp h3{font-size:1.5rem!important}
+
+  .sidebar{display:none!important}
+  .main{margin-left:0!important;width:100%!important}
+  .app-layout{overflow-x:hidden}
+  .topbar{padding:0.6rem 0.8rem!important}
+  .topbar-left h1{font-size:0.82rem}
+  .topbar-right .avatar{display:none}
+  .topbar-btn{padding:0.35rem 0.6rem;font-size:0.68rem}
+  .content{padding:0.8rem!important;overflow-x:hidden}
+
+  .kpi-grid{grid-template-columns:repeat(2,1fr)!important;gap:0.6rem!important}
+  .kpi-value{font-size:1.3rem!important}
+  .kpi-card{padding:0.9rem!important}
+  .charts-row{grid-template-columns:1fr!important;gap:0.8rem!important}
+
+  .table-card{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:500px}
+  th{padding:0.55rem 0.7rem!important;font-size:0.66rem!important}
+  td{padding:0.65rem 0.7rem!important;font-size:0.76rem!important}
+  .table-search{width:110px!important;font-size:0.68rem}
+  .table-header{flex-wrap:wrap;gap:0.4rem;padding:0.7rem 0.8rem!important}
+
+  .feat-auth-grid{grid-template-columns:1fr!important}
+  .perms-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .perms-table{min-width:460px}
+  .perms-table th,.perms-table td{padding:0.55rem 0.6rem!important;font-size:0.73rem!important}
+
+  .admin-inner{grid-template-columns:1fr!important;gap:1.5rem!important}
+  .admin-mockup{display:none!important}
+  .features-grid,.feat-auth-grid,.results-grid,.testi-lp-grid,.blog-grid,.hiw-steps{grid-template-columns:1fr!important}
+
+  footer{flex-direction:column!important;text-align:center;gap:0.4rem!important;padding:1rem 4%!important}
+
+  .hero-dash{padding:3.5rem 4% 2.5rem!important}
+  .hero-dash-btns{flex-direction:column;align-items:center}
+  .hero-auth-btns,.hero-corp-btns,.hero-lp-btns{flex-direction:column;align-items:stretch;max-width:100%!important}
+  .btn-orange-full,.btn-cyan,.btn-gold,.btn-violet,.btn-white,.btn-ghost-dash,.btn-ghost-auth,.btn-ghost-corp{width:100%;text-align:center;box-sizing:border-box}
+
+  .cta-dash,.cta-auth,.cta-lp,.cta-corp{padding:3rem 4%!important}
+  section{box-sizing:border-box}
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <div class="logo-lp">Convert<span>.</span></div>
+  <ul class="nav-lp-links">
+    <li><a href="#">Como funciona</a></li>
+    <li><a href="#">Resultados</a></li>
+    <li><a href="#">Depoimentos</a></li>
+    <li><a href="#">Preços</a></li>
+  </ul>
+  <a href="#" class="nav-lp-btn">Começar agora →</a>
+  <a href="index.html" class="back-badge">← Voltar ao site</a>
+  <div class="syntech-badge">LYVON — DEMO</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-lp">
+  <div class="hero-lp-text">
+    <div class="lp-tag fu">🚀 Landing Page de Alta Conversão</div>
+    <h1 class="fu2">Transforme <em>visitantes</em> em clientes de verdade</h1>
+    <p class="fu3">Landing pages otimizadas com A/B testing, pixel do Meta, integração com CRM e estrutura validada para converter 3x mais.</p>
+    <div class="hero-lp-btns fu3">
+      <a href="#" class="btn-orange-full">Quero mais conversões →</a>
+      <div class="hero-sub-note">✅ Sem compromisso · Orçamento grátis em 24h</div>
+    </div>
+    <div class="social-proof-row">
+      <div class="proof-avatars">
+        <div class="proof-avatar">👨‍💼</div>
+        <div class="proof-avatar">👩‍💻</div>
+        <div class="proof-avatar">👨‍🚀</div>
+        <div class="proof-avatar">👩‍🔬</div>
+        <div class="proof-avatar">+</div>
+      </div>
+      <div>
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text"><strong>+200 empresas</strong> convertendo mais</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-lp-right fu2">
+    <div class="lp-mockup">
+      <div class="lp-mockup-bar">
+        <div class="lp-mockup-dots">
+          <div class="lp-mockup-dot" style="background:#ff5f57"></div>
+          <div class="lp-mockup-dot" style="background:#febc2e"></div>
+          <div class="lp-mockup-dot" style="background:#28c840"></div>
+        </div>
+        <div class="url-bar">
+          <span class="url-lock">🔒</span>
+          suapagina.com.br/oferta
+        </div>
+      </div>
+      <div class="lp-mockup-body">
+        <div class="mini-hero">
+          <div class="mini-tag">⚡ Oferta especial</div>
+          <div class="mini-h1">Dobre suas vendas<br>em 30 dias</div>
+          <p class="mini-p">Método exclusivo + suporte dedicado para escalar seu negócio</p>
+          <a href="#" class="mini-btn">Quero participar →</a>
+        </div>
+        <div class="mini-form">
+          <div class="mini-form-title">📩 Receba sua proposta grátis</div>
+          <input class="mini-input" type="text" placeholder="Seu nome completo" value="Maria Santos">
+          <input class="mini-input" type="email" placeholder="Melhor e-mail" value="maria@empresa.com">
+          <input class="mini-input" type="tel" placeholder="WhatsApp" value="(44) 9 8888-7777">
+          <button class="mini-submit">Quero minha proposta agora →</button>
+          <div class="conv-badge">
+            <div class="conv-dot"></div>
+            <strong>47 pessoas</strong> preencheram hoje
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="hiw-section">
+  <div class="hiw-header">
+    <div style="display:inline-block;background:rgba(255,77,0,0.07);border:1px solid rgba(255,77,0,0.18);color:var(--orange);font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:50px;margin-bottom:1rem">Como funciona</div>
+    <h2>Do zero à conversão<br>em 5 dias úteis</h2>
+    <p>Processo estruturado e validado para entregar resultados desde o primeiro dia.</p>
+  </div>
+  <div class="hiw-steps">
+    <div class="hiw-step">
+      <div class="step-num">1</div>
+      <h4>Briefing estratégico</h4>
+      <p>Mapeamos sua oferta, público-alvo e principais objeções dos clientes.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-num">2</div>
+      <h4>Design e copywriting</h4>
+      <p>Criamos uma página visualmente impecável com textos persuasivos validados.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-num">3</div>
+      <h4>Integrações e pixel</h4>
+      <p>Configuramos Pixel do Meta, Google Analytics, CRM e automações de e-mail.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-num">4</div>
+      <h4>A/B Testing</h4>
+      <p>Testamos variações de headline, CTA e layout para maximizar as conversões.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-num">5</div>
+      <h4>Lançamento & Otimização</h4>
+      <p>Publicamos e acompanhamos métricas com ajustes contínuos por 15 dias.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results-section">
+  <div class="results-header">
+    <div style="display:inline-block;background:rgba(255,77,0,0.12);border:1px solid rgba(255,77,0,0.25);color:var(--orange);font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:50px;margin-bottom:1rem">Resultados reais</div>
+    <h2>Números que <span>comprovam</span></h2>
+    <p>Médias obtidas nos projetos entregues pela LYVON.</p>
+  </div>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-num">3x</div>
+      <div class="result-label">Mais conversões</div>
+      <div class="result-sub">vs página anterior do cliente</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">5d</div>
+      <div class="result-label">Entrega garantida</div>
+      <div class="result-sub">do briefing à página no ar</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">97%</div>
+      <div class="result-label">Aprovação dos clientes</div>
+      <div class="result-sub">na primeira revisão</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">99</div>
+      <div class="result-label">PageSpeed Score</div>
+      <div class="result-sub">performance e carregamento</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-lp">
+  <div class="testi-lp-header">
+    <h2>Clientes que já converteram</h2>
+    <p>Resultados reais de negócios que apostaram na LYVON</p>
+  </div>
+  <div class="testi-lp-grid">
+    <div class="testi-lp-card">
+      <div class="result-highlight">+340% de conversão</div>
+      <div class="testi-lp-stars">★★★★★</div>
+      <p>"Nossa antiga página convertia 1,2%. Com a LYVON chegamos a 5,3%. O ROI foi absurdo no primeiro mês."</p>
+      <div class="testi-lp-author">
+        <div class="tl-av">👨‍💼</div>
+        <div class="tl-info">
+          <strong>Carlos Mendes</strong>
+          <span>CEO — AgênciaDigital PR</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-lp-card">
+      <div class="result-highlight">3x mais leads qualificados</div>
+      <div class="testi-lp-stars">★★★★★</div>
+      <p>"Além de converter muito mais, os leads agora são muito mais qualificados. Minha equipe de vendas amou."</p>
+      <div class="testi-lp-author">
+        <div class="tl-av">👩‍💻</div>
+        <div class="tl-info">
+          <strong>Ana Costa</strong>
+          <span>Diretora — TechStart SP</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-lp-card">
+      <div class="result-highlight">Entregue em 4 dias</div>
+      <div class="testi-lp-stars">★★★★★</div>
+      <p>"Precisava urgente para o lançamento do produto. Entregaram em 4 dias, qualidade impecável e suporte rápido."</p>
+      <div class="testi-lp-author">
+        <div class="tl-av">👨‍🚀</div>
+        <div class="tl-info">
+          <strong>Rafael Oliveira</strong>
+          <span>Fundador — LanchesFast</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-lp">
+  <h2>Pronto para converter<br>muito mais?</h2>
+  <p>Peça seu orçamento agora. Respondemos em até 24h com uma proposta personalizada para o seu negócio.</p>
+  <a href="index.html#contato" class="btn-white">Solicitar orçamento grátis →</a>
+  <div class="cta-note">✅ Sem compromisso · Resposta em até 24h · Resultado garantido</div>
+</section>
+
+<footer class="lp-footer">
+  <div class="logo-lp" style="font-size:1rem">Convert<span>.</span></div>
+  <div class="footer-note">Desenvolvido por <a href="index.html">LYVON</a> • Projeto real disponível sob orçamento</div>
+  <div class="footer-note">© 2026 LYVON — Todos os direitos reservados.</div>
+</footer>
+
+</body>
+</html>
